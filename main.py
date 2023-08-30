@@ -1,13 +1,13 @@
 import csv
 import math
 from datetime import datetime
-
+from time import time
 
 def calculate_distance(x1, y1, x2, y2):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
-def clustered_data(input_file, output_file):
+def cluster_data(input_file, output_file):
     clusters = []
 
     with open(input_file, 'r') as csvfile:
@@ -57,12 +57,13 @@ def clustered_data(input_file, output_file):
             writer.writerow({
                 'f_timestamp': f_timestamp,
                 'f_id': f_id,
-                'clustered_data': clustered_data,
+                'cluster_data': cluster_data,
                 'f_u_id': f_u_id
             })
 def main():
     input_file = 'C:\\cluster\\test_Data.csv'
     output_file = 'output_data.csv'
-    clustered_data(input_file, output_file)
+    cluster_data(input_file, output_file)
 if __name__ == "__main__":
+
     main()
