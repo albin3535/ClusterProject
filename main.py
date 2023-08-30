@@ -7,7 +7,7 @@ def calculate_distance(x1, y1, x2, y2):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
-def cluster_data(input_file, output_file):
+def clustered_data(input_file, output_file):
     clusters = []
 
     with open(input_file, 'r') as csvfile:
@@ -48,25 +48,21 @@ def cluster_data(input_file, output_file):
         writer.writeheader()
 
         for cluster in clusters:
+
             f_timestamp = sum(obj['timestamp'].timestamp() for obj in cluster) / len(cluster)
-            f_id = hash(tuple(obj['sensor_id'] for obj in cluster))  # Randomly assigned f_id
+            f_id = hash(tuple(obj['sensor_id'] for obj in cluster))
             cluster_data = [[obj['x_position'], obj['y_position'], obj['sensor_id']] for obj in cluster]
             f_u_id = next((obj['unique_id'] for obj in cluster if obj['unique_id'] != 0), None)
 
             writer.writerow({
                 'f_timestamp': f_timestamp,
                 'f_id': f_id,
-                'cluster_data': cluster_data,
+                'clustered_data': clustered_data,
                 'f_u_id': f_u_id
             })
-
-
 def main():
     input_file = 'C:\\cluster\\test_Data.csv'
     output_file = 'output_data.csv'
-    cluster_data(input_file, output_file)
-
-
-
+    clustered_data(input_file, output_file)
 if __name__ == "__main__":
     main()
